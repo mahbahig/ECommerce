@@ -1,1 +1,62 @@
-<p>navbar works!</p>
+<nav class="bg-white border-gray-200 border-b-gray-400 border-[1px]">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4 px-14">
+        <a routerLink="home">
+            <img src="./assets/images/freshcart-logo.svg" class="h-8" alt="Freshcart Logo" />
+        </a>
+        <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+            <button type="button"
+                class="flex text-sm bg-transparent rounded-full md:me-0 focus:scale-125 transition mt-2 hover:scale-125"
+                id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
+                data-dropdown-placement="bottom">
+                <i class="fa-regular fa-user text-2xl w-8 h-8 rounded-full"></i>
+            </button>
+            <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow"
+                id="user-dropdown">
+                <div class="px-4 py-3">
+                    <span class="block text-sm text-gray-900">User name</span>
+                    <span class="block text-sm  text-gray-500 truncate">User email</span>
+                </div>
+                <ul class="py-2" aria-labelledby="user-menu-button">
+                    <li>
+                        <a routerLink="login" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</a>
+                    </li>
+                </ul>
+            </div>
+            <button data-collapse-toggle="navbar-user" type="button" (click)="toggleRotation()"
+                class="inline-flex items-center w-10 h-10 justify-center rounded-lg md:hidden hover:bg-gray-100 focus:outline-none"
+                aria-controls="navbar-user" aria-expanded="false">
+                <i [ngClass]="{'rotate-90': isRotated}" class="fa-solid fa-bars text-3xl text-gray-900 my-0 py-0 transition-transform duration-300 ease-in-out"></i>
+            </button>
+        </div>
+        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
+            <ul
+                class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
+                <li>
+                    <a routerLink="home"
+                        routerLinkActive="text-white md:text-main bg-main md:bg-transparent hover:bg-main"
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent transition-all md:hover:scale-125">Home</a>
+                </li>
+                <li>
+                    <a routerLink="cart"
+                        routerLinkActive="text-white md:text-main bg-main md:bg-transparent hover:bg-main"
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent transition-all md:hover:scale-125">Cart</a>
+                </li>
+                <li>
+                    <a routerLink="products"
+                        routerLinkActive="text-white md:text-main bg-main md:bg-transparent hover:bg-main"
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent transition-all md:hover:scale-125">Products</a>
+                </li>
+                <li>
+                    <a routerLink="categories"
+                        routerLinkActive="text-white md:text-main bg-main md:bg-transparent hover:bg-main"
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent transition-all md:hover:scale-125">Categories</a>
+                </li>
+                <li>
+                    <a routerLink="brands"
+                        routerLinkActive="text-white md:text-main bg-main md:bg-transparent hover:bg-main"
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent transition-all md:hover:scale-125">Brands</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

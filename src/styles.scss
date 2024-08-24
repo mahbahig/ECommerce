@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'Encode Sans Expanded';
+    src: url('assets/fonts/Encode_Sans_Expanded/EncodeSansExpanded-Light.ttf') format('truetype');
+}
+
+.font-encode {
+    font-family: 'Encode Sans Expanded', sans-serif;
+}
