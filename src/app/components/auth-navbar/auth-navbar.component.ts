@@ -1,21 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FlowbiteService } from '../../core/services/flowbite/flowbite.service';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-auth-navbar',
   standalone: true,
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './auth-navbar.component.html',
-  styleUrl: './auth-navbar.component.scss'
+  styleUrl: './auth-navbar.component.scss',
+  // encapsulation: ViewEncapsulation.None,
 })
-export class AuthNavbarComponent implements OnInit{
-  constructor(private _FlowbiteService: FlowbiteService) { }
+export class AuthNavbarComponent {
+  // constructor(private _FlowbiteService: FlowbiteService) { }
 
-  ngOnInit(): void {
-    this._FlowbiteService.loadFlowbite(() => { });
-  }
+  // ngOnInit(): void {
+  // }
 
   isRotated = false;
   toggleRotation() {

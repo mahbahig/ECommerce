@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from "../../components/footer/footer.component";
@@ -8,7 +8,8 @@ import { FooterComponent } from "../../components/footer/footer.component";
   standalone: true,
   imports: [NavbarComponent, RouterOutlet, FooterComponent],
   templateUrl: './blank-layout.component.html',
-  styleUrl: './blank-layout.component.scss'
+  styleUrl: './blank-layout.component.scss',
+  // encapsulation: ViewEncapsulation.None,
 })
 export class BlankLayoutComponent {
 

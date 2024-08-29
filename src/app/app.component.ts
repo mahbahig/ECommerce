@@ -4,6 +4,7 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { HomeComponent } from "./components/home/home.component";
 import { AuthNavbarComponent } from "./components/auth-navbar/auth-navbar.component";
+import { FlowbiteService } from './core/services/flowbite/flowbite.service';
 
 @Component({
   selector: 'app-root',
@@ -14,4 +15,7 @@ import { AuthNavbarComponent } from "./components/auth-navbar/auth-navbar.compon
 })
 export class AppComponent {
   title = 'ECommerce';
+  constructor(private _FlowbiteService: FlowbiteService) {
+    this._FlowbiteService.loadFlowbite(() => { });
+  }
 }

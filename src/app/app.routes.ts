@@ -14,21 +14,21 @@ export const routes: Routes = [
     {
         path: '', component: AuthLayoutComponent, children: [
             { path: '', redirectTo: 'login', pathMatch: 'full' },
-            { path: 'login', component: LoginComponent },
-            { path: 'register', component: RegisterComponent }
+            { path: 'login', component: LoginComponent, title: 'Login' },
+            { path: 'register', component: RegisterComponent, title: 'Register' }
         ]
     },
 
     {
         path: '', component: BlankLayoutComponent, children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: HomeComponent },
-            { path: 'cart', component: CartComponent },
-            { path: 'products', component: ProductsComponent },
-            { path: 'categories', component: CategoriesComponent },
-            { path: 'brands', component: BrandsComponent },
+            { path: 'home', component: HomeComponent, title: 'Home' },
+            { path: 'cart', component: CartComponent, title: 'Cart' },
+            { path: 'products', component: ProductsComponent, title: 'Products' },
+            { path: 'categories', component: CategoriesComponent, title: 'Categories' },
+            { path: 'brands', component: BrandsComponent, title: 'Brands' },
         ]
     },
 
-    { path: '**', component: NotFoundComponent }
+    { path: '**', component: NotFoundComponent, title: 'Not Found' }
 ];
