@@ -1,24 +1,55 @@
 <section class="bg-cover bg-center py-10">
-    <form class="max-w-md mx-auto">
-        <h2 class="text-3xl font-encode mb-4">Login Now :</h2>
+    <form class="max-w-md mx-auto" [formGroup]="loginForm" (ngSubmit)="loginFormSubmit()">
+        <h2 class="text-3xl font-encode mb-8">Login Now :</h2>
         <div class="relative z-0 w-full mb-5 group">
-            <input type="email" name="floating_email" id="floating_email"
+            <input type="email" name="email" id="email" formControlName="email"
                 class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent rounded border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-main peer"
-                placeholder=" " required />
-            <label for="floating_email"
+                placeholder=" " />
+            <label for="email"
                 class="peer-focus:font-medium ml-2 absolute text-sm text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-main peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">Email
                 address</label>
+            @if (loginForm.get('email')?.errors && loginForm.get('email')?.touched) {
+            <div class="bg-[#fbd5d5ac] py-2 mt-2 rounded-md">
+                @if (loginForm.get('email')?.getError('required')) {
+                <p class="text-center text-gray-700">Email is required</p>
+                }
+                @else if (loginForm.get('email')?.getError('email')) {
+                <p class="text-center text-gray-700">Please enter a valid email</p>
+                }
+            </div>
+            }
         </div>
         <div class="relative z-0 w-full mb-5 group">
-            <input type="password" name="floating_password" id="floating_password"
+            <input type="password" name="password" id="password" formControlName="password"
                 class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent rounded border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-main peer"
-                placeholder=" " required />
-            <label for="floating_password"
+                placeholder=" " />
+            <label for="password"
                 class="peer-focus:font-medium ml-2 absolute text-sm text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-main peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">Password</label>
+            @if (loginForm.get('password')?.errors && loginForm.get('password')?.touched) {
+            <div class="bg-[#fbd5d5ac] py-2 mt-2 rounded-md">
+                @if (loginForm.get('password')?.getError('required')) {
+                <p class="text-center text-gray-700">Password is required</p>
+                }
+            </div>
+            }
         </div>
+        @if (errMessage) {
+        <div class="bg-[#fbd5d5ac] py-2 my-3 rounded-md">
+            <p class="text-center text-gray-700">{{errMessage}}</p>
+        </div>
+        }
+        @if (successMessage) {
+        <div class="bg-[#0aad0aac] py-2 my-3 rounded-md">
+            <p class="text-center text-gray-700">Logged in successfully</p>
+        </div>
+        }
         <div class="flex flex-col md:flex-row justify-between items-center">
-            <button type="submit"
-                class="text-white bg-main md:hover:scale-110 transition-all focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Login</button>
+            <button type="submit" [disabled]="isLoading"
+                class="text-white bg-main md:hover:scale-110 transition-all focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Login
+                @if (isLoading) {
+                <i class="fas fa-spin fa-spinner"></i>
+                }
+            </button>
             <a routerLink="/register" class="underline text-main">
                 <p>Don't have an account? Register now</p>
             </a>
