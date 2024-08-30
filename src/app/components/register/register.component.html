@@ -87,6 +87,11 @@
                 <p class="text-center text-gray-700">{{errMessage}}</p>
             </div>
         }
+        @if (successMessage) {
+            <div class="bg-[#0aad0a81] py-2 my-3 rounded-md">
+                <p class="text-center text-gray-700">Account created successfully</p>
+            </div>
+        }
         <div class="flex flex-col justify-between md:flex-row items-center">
             <button type="submit" [disabled]="isLoading"
                 class="text-white bg-main md:hover:scale-110 transition-all focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Register
