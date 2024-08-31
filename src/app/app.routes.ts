@@ -9,10 +9,12 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { BrandsComponent } from './components/brands/brands.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { BlankLayoutComponent } from './layouts/blank-layout/blank-layout.component';
+import { authGuard } from './core/guards/auth/auth.guard';
+import { loggedGuard } from './core/guards/logged/logged.guard';
 
 export const routes: Routes = [
     {
-        path: '', component: AuthLayoutComponent, children: [
+        path: '', component: AuthLayoutComponent, canActivate:[loggedGuard],children: [
             { path: '', redirectTo: 'login', pathMatch: 'full' },
             { path: 'login', component: LoginComponent, title: 'Login' },
             { path: 'register', component: RegisterComponent, title: 'Register' }
@@ -20,7 +22,7 @@ export const routes: Routes = [
     },
 
     {
-        path: '', component: BlankLayoutComponent, children: [
+        path: '', component: BlankLayoutComponent, canActivate:[authGuard],children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent, title: 'Home' },
             { path: 'cart', component: CartComponent, title: 'Cart' },

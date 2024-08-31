@@ -13,9 +13,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class LoginComponent {
 
-  private readonly _AuthService = inject(AuthService)
-  private readonly _FormBuilder = inject(FormBuilder)
-  private readonly _Router = inject(Router)
+  private readonly _AuthService = inject(AuthService);
+  private readonly _FormBuilder = inject(FormBuilder);
+  private readonly _Router = inject(Router);
 
   errMessage: string = '';
   successMessage: boolean = false;
@@ -28,14 +28,16 @@ export class LoginComponent {
 
   loginFormSubmit() {
     if (this.loginForm.valid) {
-      this.isLoading = true
+      this.isLoading = true;
       this._AuthService.setLoginForm(this.loginForm.value).subscribe({
         next: (res) => { 
           if (res.message == 'success') { 
-            this.errMessage = ''
+            this.errMessage = '';
             this.successMessage = true;
+            localStorage.setItem('userToken', res.token);
+            this._AuthService.saveUserData();
             setTimeout(() => {
-              this._Router.navigate(['/home'])
+              this._Router.navigate(['/home']);
             }, 2000)
           }
           this.isLoading = false;
@@ -47,7 +49,7 @@ export class LoginComponent {
       })
     }
     else {
-      this.loginForm.markAllAsTouched()
+      this.loginForm.markAllAsTouched();
     }
   }
 }
