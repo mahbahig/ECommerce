@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FlowbiteService } from '../../core/services/flowbite/flowbite.service';
+import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -8,17 +7,11 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './auth-navbar.component.html',
   styleUrl: './auth-navbar.component.scss',
-  // encapsulation: ViewEncapsulation.None,
 })
 export class AuthNavbarComponent {
-  // constructor(private _FlowbiteService: FlowbiteService) { }
-
-  // ngOnInit(): void {
-  // }
 
   isRotated = false;
   toggleRotation() {
     this.isRotated = !this.isRotated;
   }
-
 }
