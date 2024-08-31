@@ -1,5 +1,6 @@
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Component, inject } from '@angular/core';
+import { AuthService } from '../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,15 +10,14 @@ import { Component, inject } from '@angular/core';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  private readonly _Router = inject(Router);
+  private readonly _AuthService = inject(AuthService);
 
-  isRotated = false;
-  toggleRotation() {
+  isRotated: boolean = false;
+  toggleRotation(): void {
     this.isRotated = !this.isRotated;
   }
 
-  logOut() {
-    localStorage.removeItem('userToken');
-    this._Router.navigate(['/login']);
+  logOut(): void {
+    this._AuthService.logOut();
   }
 }
