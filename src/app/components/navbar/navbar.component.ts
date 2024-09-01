@@ -1,5 +1,5 @@
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from '../../core/services/auth/auth.service';
 
 @Component({
@@ -9,12 +9,20 @@ import { AuthService } from '../../core/services/auth/auth.service';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   private readonly _AuthService = inject(AuthService);
+
+  name!: string;
+  ngOnInit(): void {
+    this._AuthService.saveUserData()
+    this.name = this._AuthService.userData.name;
+  }
 
   isRotated: boolean = false;
   toggleRotation(): void {
     this.isRotated = !this.isRotated;
+    console.log(this._AuthService.userData.name);
+    
   }
 
   logOut(): void {

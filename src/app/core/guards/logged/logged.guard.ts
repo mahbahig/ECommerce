@@ -5,7 +5,7 @@ export const loggedGuard: CanActivateFn = (route, state) => {
 
   const _Router = inject(Router);
 
-  if (typeof localStorage !== undefined) {
+  if (typeof localStorage !== 'undefined') {
     if (localStorage.getItem('userToken') !== null) {
       _Router.navigate(['/home']);
       return false;
