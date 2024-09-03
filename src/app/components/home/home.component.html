@@ -4,24 +4,25 @@
             <owl-carousel-o [options]="mainCarousel">
                 <ng-template carouselSlide>
                     <div>
-                        <img src="/assets/images/slider-image-1.jpeg" alt="Bag of different vegetables" class="h-[300px]">
+                        <img src="/assets/images/slider-image-1.jpeg" alt="Bag of different vegetables"
+                            class="h-[300px]" />
                     </div>
                 </ng-template>
                 <ng-template carouselSlide>
                     <div>
-                        <img src="/assets/images/slider-image-2.jpeg" alt="Pink wafer rolls box" class="h-[300px]">
+                        <img src="/assets/images/slider-image-2.jpeg" alt="Pink wafer rolls box" class="h-[300px]" />
                     </div>
                 </ng-template>
                 <ng-template carouselSlide>
                     <div>
-                        <img src="/assets/images/slider-image-3.jpeg" alt="Cocao Packet" class="h-[300px]">
+                        <img src="/assets/images/slider-image-3.jpeg" alt="Cocao Packet" class="h-[300px]" />
                     </div>
                 </ng-template>
             </owl-carousel-o>
         </div>
         <div class="w-3/12 flex flex-col">
-            <img class="w-full h-[150px]" src="../../../assets/images/grocery-banner.png" alt="Bag of different vegetables">
-            <img class="w-full h-[150px]" src="../../../assets/images/grocery-banner-2.jpeg" alt="Bag of bread">
+            <img class="w-full h-[150px]" src="/assets/images/grocery-banner.png" alt="Bag of different vegetables">
+            <img class="w-full h-[150px]" src="/assets/images/grocery-banner-2.jpeg" alt="Bag of bread">
         </div>
     </div>
 </section>
@@ -30,7 +31,7 @@
     <div class="w-full flex justify-between">
         <owl-carousel-o [options]="categoriesCarousel" class="justify-between flex w-full">
             @for (category of categoriesList; track category._id) {
-            <ng-template carouselSlide [id]="category._id">
+            <ng-template carouselSlide>
                 <div class="">
                     <img [src]="category.image" [alt]="category.name" class="h-36">
                     <h2 class="text-center">{{category.name}}</h2>
@@ -44,35 +45,36 @@
     <div class="w-[90%] mx-auto">
         <h2 class="font-encode text-3xl">Featured products</h2>
         <div class="justify-between flex flex-wrap">
-            @for (product of productList; track product._id) {
-            <div class="w-full sm:w-[45%] md:w-[30%] lg:w-[18%] mx-auto md:mx-2 my-3 bg-white border-[0.5px] border-gray-400 rounded-lg cursor-pointer hover:scale-105 hover:border-main transition-all"
-                (click)="openModal(product)">
-                <div class="h-36">
+            @for (product of productList; track product.id) {
+            <div
+                class="w-full sm:w-[45%] md:w-[30%] lg:w-[18%] mx-auto md:mx-2 my-3 bg-white border-[0.5px] border-gray-400 rounded-lg cursor-pointer hover:scale-105 hover:border-main transition-all">
+                <div class="h-36" (click)="openModal(product)">
                     <img class="w-full h-full object-fill rounded-t-lg" [src]="product.imageCover"
                         [alt]="product.title" />
                 </div>
                 <div class="px-2 pb-5 mt-2">
-                    <p class="text-lg md:text-sm text-gray-500">{{product.category.name}}</p>
-                    <h5 class="text-sm font-semibold tracking-tight text-gray-900">{{product.title.split(' ', 2).join('
-                        ')}}
-                    </h5>
-                    <div class="flex items-center mt-2.5 mb-5">
-                        <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                            @for (star of [1, 2, 3, 4, 5].slice(0, product.ratingsAverage); track $index) {
-                            <i class="fa-solid fa-star text-yellow-500"></i>
-                            }
-                            @if (product.ratingsAverage%1 !== 0) {
-                            <i class="fa-solid fa-star-half-alt text-yellow-500"></i>
-                            }
-                            <span class="text-gray-500 text-xs font-semibold">{{product.ratingsAverage}}
-                                ({{product.ratingsQuantity}})</span>
+                    <div (click)="openModal(product)">
+                        <p class="text-lg md:text-sm text-gray-500">{{product.category.name}}</p>
+                        <h5 class="text-sm font-semibold tracking-tight text-gray-900">{{product.title.split('
+                            ',2).join(' ')}}</h5>
+                        <div class="flex items-center mt-2.5 mb-5">
+                            <div class="flex items-center space-x-1 rtl:space-x-reverse">
+                                @for (star of [1, 2, 3, 4, 5].slice(0, product.ratingsAverage); track $index) {
+                                <i class="fa-solid fa-star text-yellow-500"></i>
+                                }
+                                @if (product.ratingsAverage%1 !== 0) {
+                                <i class="fa-solid fa-star-half-alt text-yellow-500"></i>
+                                }
+                                <span class="text-gray-500 text-xs font-semibold">{{product.ratingsAverage}}
+                                    ({{product.ratingsQuantity}})</span>
+                            </div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between px-2">
                         <span class="text-sm font-semibold text-gray-500">{{product.price}} EGP</span>
                         <button
-                            class="text-white bg-main hover:scale-105 transition-all md:w-6/12 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center">
-                            Add <i class="fa-solid fa-cart-shopping text-main-light"></i> </button>
+                            class="text-white bg-main hover:scale-105 transition-all md:w-6/12 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center">
+                            Add <i class="fa-solid fa-cart-shopping text-main-light"></i></button>
                     </div>
                 </div>
             </div>
@@ -80,7 +82,7 @@
         </div>
     </div>
     @if (selectedProduct) {
-    <div class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+    <div class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-20">
         <div class="bg-white w-11/12 md:w-1/2 rounded-lg shadow-lg  relative">
             <button (click)="closeModal()"
                 class="text-gray-800 bg-transparent hover:bg-gray-200 rounded-lg p-3 mr-auto absolute right-4 top-4">
@@ -89,7 +91,7 @@
             <img [src]="selectedProduct.imageCover" alt="Selected Product" class="w-full h-72 object-fill rounded-md">
             <div class="px-5 pb-5">
                 <p class="text-gray-900 text-xl">{{selectedProduct.title}}</p>
-                <p class="text-gray-500">{{selectedProduct.description}}</p>
+                <p class="text-gray-500">{{selectedProduct.description.split(' ', 8).join(' ')}}</p>
                 <div class="flex items-center mt-2.5 mb-5">
                     <div class="flex items-center space-x-1 rtl:space-x-reverse">
                         @for (star of [1, 2, 3, 4, 5].slice(0, selectedProduct.ratingsAverage); track $index) {
@@ -102,11 +104,17 @@
                     <span
                         class="bg-main-light text-main text-xs font-semibold px-2.5 py-0.5 rounded ms-3">{{selectedProduct.ratingsAverage}}</span>
                 </div>
-                <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between flex-col md:flex-row gap-y-2 md:gap-0">
                     <span class="text-xl font-semibold text-gray-500 ">{{selectedProduct.price}} EGP</span>
-                    <a
-                        class="text-white bg-main hover:scale-105 transition-all focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add
-                        to cart <i class="fa-solid fa-cart-shopping text-main-light"></i></a>
+                    <div>
+
+                        <a
+                            class="text-white mx-4 bg-main hover:scale-105 transition-all focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full md:w-fit">Add
+                            to cart <i class="fa-solid fa-cart-shopping text-white"></i></a>
+                        <a [routerLink]="['/details', selectedProduct.id]"
+                            class="text-white mx-4 bg-main hover:scale-105 transition-all focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full md:w-fit">More
+                            Details<i class="fa-solid fa-arrow-right text-white ml-2"></i></a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -5,56 +5,44 @@ import { IProduct } from '../../core/interfaces/product/iproduct';
 import { Subscription } from 'rxjs';
 import { CategoriesService } from '../../core/services/categories/categories.service';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { RouterLink } from '@angular/router';
+import { AutoHeightService } from 'ngx-owl-carousel-o/lib/services/autoheight.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CarouselModule],
+  imports: [CarouselModule, RouterLink, ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy{
 
   mainCarousel: OwlOptions = {
     loop: true,
-    mouseDrag: false,
-    touchDrag: false,
+    mouseDrag: true,
+    touchDrag: true,
     pullDrag: false,
     dots: false,
     navSpeed: 700,
     navText: ['', ''],
     autoplay: true,
     items: 1,
-    nav: false
+    nav: false,
+    autoHeight: false
   }
 
   categoriesCarousel: OwlOptions = {
     loop: true,
-    mouseDrag: false,
-    touchDrag: false,
+    mouseDrag: true,
+    touchDrag: true,
     pullDrag: false,
     dots: false,
     navSpeed: 700,
     navText: ['', ''],
     autoplay: true,
-    responsive: {
-      0: {
-        items: 1
-      },
-      400: {
-        items: 1
-      },
-      740: {
-        items: 2
-      },
-      940: {
-        items: 4
-      },
-      1024: {
-        items: 5
-      }
-    },
-    nav: true
+    responsive: { 0: { items: 1 }, 400: { items: 1 }, 740: { items: 2 }, 940: { items: 4 }, 1024: { items: 5 } },
+    nav: true,
+    autoHeight: false
   }
 
 

@@ -11,6 +11,7 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 import { BlankLayoutComponent } from './layouts/blank-layout/blank-layout.component';
 import { authGuard } from './core/guards/auth/auth.guard';
 import { loggedGuard } from './core/guards/logged/logged.guard';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
 export const routes: Routes = [
     {
@@ -29,6 +30,7 @@ export const routes: Routes = [
             { path: 'products', component: ProductsComponent, title: 'Products' },
             { path: 'categories', component: CategoriesComponent, title: 'Categories' },
             { path: 'brands', component: BrandsComponent, title: 'Brands' },
+            { path: 'details/:productId', component: ProductDetailsComponent },
         ]
     },
 
