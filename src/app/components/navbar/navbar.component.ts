@@ -20,17 +20,10 @@ export class NavbarComponent implements OnInit {
 
   isRotated: boolean = false;
   toggleRotation(): void {
-    this.isRotated = !this.isRotated;
-    console.log(this._AuthService.userData.name);
-    
+    this.isRotated = !this.isRotated;    
   }
 
   logOut(): void {
     this._AuthService.logOut();
-  }
-
-  debug() { 
-    console.log('hello');
-    
   }
 }

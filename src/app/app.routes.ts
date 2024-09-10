@@ -12,13 +12,15 @@ import { BlankLayoutComponent } from './layouts/blank-layout/blank-layout.compon
 import { authGuard } from './core/guards/auth/auth.guard';
 import { loggedGuard } from './core/guards/logged/logged.guard';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 
 export const routes: Routes = [
     {
         path: '', component: AuthLayoutComponent, canActivate:[loggedGuard],children: [
             { path: '', redirectTo: 'login', pathMatch: 'full' },
             { path: 'login', component: LoginComponent, title: 'Login' },
-            { path: 'register', component: RegisterComponent, title: 'Register' }
+            { path: 'register', component: RegisterComponent, title: 'Register' },
+            { path: 'forgetPassword', component: ForgetPasswordComponent, title: 'Forget Password' },
         ]
     },
 

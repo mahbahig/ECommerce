@@ -37,4 +37,16 @@ export class AuthService {
     this.userData = null
     this._Router.navigate(['/login']);
   }
+
+  verifyEmailReset(data: object): Observable<any> {
+    return this._HttpClient.post(`${environment.baseUrl}/api/v1/auth/forgotPasswords`, data);
+  }
+
+  verifyCodeReset(data: object): Observable<any> {
+    return this._HttpClient.post(`${environment.baseUrl}/api/v1/auth/verifyResetCode`, data);
+  }
+
+  resetPassword(data: object): Observable<any> {
+    return this._HttpClient.put(`${environment.baseUrl}/api/v1/auth/resetPassword`, data)
+  }
 }
