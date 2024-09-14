@@ -6,12 +6,13 @@ import { Subscription } from 'rxjs';
 import { CategoriesService } from '../../core/services/categories/categories.service';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { RouterLink } from '@angular/router';
-import { AutoHeightService } from 'ngx-owl-carousel-o/lib/services/autoheight.service';
+import { SearchPipe } from '../../core/pipes/search/search.pipe';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CarouselModule, RouterLink, ],
+  imports: [CarouselModule, RouterLink, SearchPipe, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -57,13 +58,14 @@ export class HomeComponent implements OnInit, OnDestroy{
 
   selectedProduct!: IProduct | null;
 
+  searchWord: string = '';
+
   ngOnInit(): void {
     this.productsSubscription = this._ProductsService.getAllProducts().subscribe({
       next: (res) => {
         this.productList = res.data
       },
       error: (err) => {
-        console.error(err);
       },
     });
     this.categoriesSubscription = this._CategoriesService.getAllCategories().subscribe({
