@@ -4,6 +4,7 @@
 
 @import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
 @import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+@import 'ngx-toastr/toastr';
 
 @font-face {
     font-family: 'Encode Sans Expanded';
@@ -12,4 +13,8 @@
 
 .font-encode {
     font-family: 'Encode Sans Expanded', sans-serif;
+}
+
+section {
+    background-image: url('/assets/images/light-pattern.png');
 }

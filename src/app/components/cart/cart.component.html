@@ -1,1 +1,49 @@
-<p>cart works!</p>
+<section class="py-8">
+    <div class="w-11/12 mx-auto p-6 bg-main-light rounded-lg">
+        <div class="flex flex-col justify-between md:flex-row">
+            <h2 class="font-encode text-3xl">Shopping Cart</h2>
+            @if (!isClearLoading) {
+            <button (click)="clearCart()"
+                class="py-2 px-4 border border-red-800 text-red-800 rounded hover:bg-red-800 hover:text-white transition-all my-4 md:my-0">Clear
+                Shopping Cart</button>
+            }
+            @else {
+            <button class="py-2 px-4 border border-red-800 rounded bg-red-800 text-white transition-all my-4 md:my-0">
+                <i class="fas fa-spinner fa-spin  text-center"></i>
+            </button>
+            }
+        </div>
+        <h2 class="font-encode text-lg text-main">Total Price: {{cartDetails.totalCartPrice | currency: 'GBP'}}</h2>
+        <ul class="my-2">
+            @for (item of cartDetails.products; track item.product.id) {
+            <li
+                class="w-full py-4 border-b-[0.5px] border-b-gray-500 px-4 flex flex-col md:flex-row justify-between items-center">
+                <div class="flex flex-col md:flex-row">
+                    <img class="aspect-square w-full md:w-24" [src]="item?.product?.imageCover"
+                        [alt]="item?.product?.title">
+                    <div class="flex flex-col justify-between mx-4 items-center md:items-start gap-y-2 md:gap-y-0">
+                        <h5 class="text-xl font-encode text-gray-900">{{item?.product?.title?.split(' ', 2)?.join(' ')}}
+                        </h5>
+                        <h5 class="text-lg font-encode text-main">Price: {{item?.price}}</h5>
+                        <h5 (click)="deleteProduct(item.product.id)" class="font-encode text-red-800 cursor-pointer"><i
+                                class="fa-regular fa-trash-can me-2"></i>Remove</h5>
+                    </div>
+                </div>
+                <div class="flex gap-x-4 my-2 md:my-0">
+                    <div (click)="updateProductQuantity(item.product.id, item.count + 1)"
+                        class="border border-main rounded text-gray-900 w-8 h-8 flex justify-center items-center cursor-pointer">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    @if (!isLoading[item.product.id]) { <p class="text-gray-500 w-8 h-8 text-center">{{item.count}}</p>
+                    }
+                    @else { <i class="fas fa-spinner fa-spin text-gray-500 text-center"></i> }
+                    <div (click)="updateProductQuantity(item.product.id, item.count - 1)"
+                        class="border border-main rounded text-gray-900 w-8 h-8 flex justify-center items-center cursor-pointer">
+                        <i class="fa-solid fa-minus"></i>
+                    </div>
+                </div>
+            </li>
+            }
+        </ul>
+    </div>
+</section>

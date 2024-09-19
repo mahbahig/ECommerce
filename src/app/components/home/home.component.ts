@@ -8,6 +8,9 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { RouterLink } from '@angular/router';
 import { SearchPipe } from '../../core/pipes/search/search.pipe';
 import { FormsModule } from '@angular/forms';
+import { CartService } from '../../core/services/cart/cart.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -49,6 +52,8 @@ export class HomeComponent implements OnInit, OnDestroy{
 
   private readonly _ProductsService = inject(ProductsService);
   private readonly _CategoriesService = inject(CategoriesService);
+  private readonly _CartService = inject(CartService);
+  private readonly _ToastrService = inject(ToastrService)
 
   productList: IProduct[] = [];
   categoriesList: ICategories[] = [];
@@ -65,14 +70,16 @@ export class HomeComponent implements OnInit, OnDestroy{
       next: (res) => {
         this.productList = res.data
       },
-      error: (err) => {
+      error: (err: HttpErrorResponse) => {
+        this._ToastrService.success('An error occured. Please try again!');
       },
     });
     this.categoriesSubscription = this._CategoriesService.getAllCategories().subscribe({
       next: (res) => {
         this.categoriesList = res.data;
       },
-      error: (err) => {
+      error: (err: HttpErrorResponse) => {
+        this._ToastrService.success('An error occured. Please try again!');
       }
     })
   }
@@ -86,5 +93,19 @@ export class HomeComponent implements OnInit, OnDestroy{
   }
   closeModal(): void {
     this.selectedProduct = null;
+  }
+
+  addProductToCart(id: string): void {
+    this._CartService.addProductToCart(id).subscribe({
+      next: (res) => {
+        console.log(res);
+        if (res.status == 'success') {
+          this._ToastrService.success(res.message);
+        }
+      },
+      error: (err: HttpErrorResponse) => {
+        this._ToastrService.success('An error occured. Please try again!');
+      }
+    })
   }
 }

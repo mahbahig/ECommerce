@@ -4,6 +4,10 @@
             <img src="./assets/images/freshcart-logo.svg" class="h-8" alt="Freshcart Logo" />
         </a>
         <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+            <button type="button" routerLink="cart"
+                class="flex text-sm bg-transparent rounded-full md:mx-4 focus:scale-125 transition mt-2 hover:scale-125">
+                <i class="fa-solid fa-cart-shopping text-2xl w-8 h-8 rounded-full"></i>
+            </button>
             <button type="button"
                 class="flex text-sm bg-transparent rounded-full md:me-0 focus:scale-125 transition mt-2 hover:scale-125"
                 id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
@@ -17,7 +21,8 @@
                 </div>
                 <ul class="py-2" aria-labelledby="user-menu-button">
                     <li>
-                        <a routerLink="login" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" (click)="logOut()">Sign out</a>
+                        <a routerLink="login" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            (click)="logOut()">Sign out</a>
                     </li>
                 </ul>
             </div>
@@ -34,27 +39,17 @@
                 <li>
                     <a routerLink="home"
                         routerLinkActive="text-white md:text-main bg-main md:bg-transparent hover:bg-main"
-                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent transition-all md:hover:scale-125">Home</a>
-                </li>
-                <li>
-                    <a routerLink="cart"
-                        routerLinkActive="text-white md:text-main bg-main md:bg-transparent hover:bg-main"
-                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent transition-all md:hover:scale-125">Cart</a>
+                        class="block py-2 px-3 text-gray-500 rounded hover:bg-gray-200 md:hover:bg-transparent transition-all md:hover:scale-125">Home</a>
                 </li>
                 <li>
                     <a routerLink="products"
                         routerLinkActive="text-white md:text-main bg-main md:bg-transparent hover:bg-main"
-                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent transition-all md:hover:scale-125">Products</a>
+                        class="block py-2 px-3 text-gray-500 rounded hover:bg-gray-200 md:hover:bg-transparent transition-all md:hover:scale-125">Products</a>
                 </li>
                 <li>
-                    <a routerLink="categories"
+                    <a routerLink="orders"
                         routerLinkActive="text-white md:text-main bg-main md:bg-transparent hover:bg-main"
-                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent transition-all md:hover:scale-125">Categories</a>
-                </li>
-                <li>
-                    <a routerLink="brands" 
-                        routerLinkActive="text-white md:text-main bg-main md:bg-transparent hover:bg-main"
-                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent transition-all md:hover:scale-125">Brands</a>
+                        class="block py-2 px-3 text-gray-500 rounded hover:bg-gray-200 md:hover:bg-transparent transition-all md:hover:scale-125">Orders</a>
                 </li>
             </ul>
         </div>
