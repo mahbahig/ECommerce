@@ -21,9 +21,6 @@ export class CartComponent implements OnInit, OnDestroy {
   private readonly _ToastrService = inject(ToastrService);
 
   getCartSubscription!: Subscription;
-  deleteProductSubscription!: Subscription;
-  updateProductQuantitySubscription!: Subscription;
-  clearCartSubscription!: Subscription;
 
   cartDetails: ICart = {} as ICart;
 
@@ -36,16 +33,16 @@ export class CartComponent implements OnInit, OnDestroy {
         this.cartDetails = res.data;
       },
       error: (err: HttpErrorResponse) => {
-        this._ToastrService.success('An error occured. Please try again!');
+        this._ToastrService.error('An error occured. Please try again!');
       }
-    })
+    });
   }
   ngOnDestroy(): void {
     this.getCartSubscription.unsubscribe();
   }
 
   deleteProduct(id: string): void {
-    this.deleteProductSubscription = this._CartService.removeProductFromCart(id).subscribe({
+    this._CartService.removeProductFromCart(id).subscribe({
       next: (res) => {
         if (res.status == 'success') {
           this._ToastrService.success('Product deleted from your shopping cart!');
@@ -53,15 +50,15 @@ export class CartComponent implements OnInit, OnDestroy {
         }
       },
       error: (err: HttpErrorResponse) => {
-        this._ToastrService.success('An error occured. Please try again!');
+        this._ToastrService.error('An error occured. Please try again!');
       }
-    })
+    });
   }
 
   updateProductQuantity(id: string, count: number): void {
     this.isLoading[id] = true;
     if (count > 0) {
-      this.updateProductQuantitySubscription = this._CartService.updateProductQuantity(id, count).subscribe({
+      this._CartService.updateProductQuantity(id, count).subscribe({
         next: (res) => {
           if (res.status == 'success') {
             this._ToastrService.success('Product quantity updated!');
@@ -71,7 +68,7 @@ export class CartComponent implements OnInit, OnDestroy {
         },
         error: (err: HttpErrorResponse) => {
           this.isLoading[id] = false;
-          this._ToastrService.success('An error occured. Please try again!');
+          this._ToastrService.error('An error occured. Please try again!');
         }
       })
     }
@@ -83,7 +80,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   clearCart(): void {
     this.isClearLoading = true;
-    this.clearCartSubscription = this._CartService.clearCart().subscribe({
+    this._CartService.clearCart().subscribe({
       next: (res) => {
         this.isClearLoading = false;
         if (res.message = "success") {
@@ -93,8 +90,8 @@ export class CartComponent implements OnInit, OnDestroy {
       },
       error: (err: HttpErrorResponse) => {
         this.isClearLoading = false;
-        this._ToastrService.success('An error occured. Please try again!');
+        this._ToastrService.error('An error occured. Please try again!');
       }
-    })
+    });
   }
 }

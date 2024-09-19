@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit, OnDestroy{
       error: (err: HttpErrorResponse) => {
         this._ToastrService.success('An error occured. Please try again!');
       }
-    })
+    });
   }
   ngOnDestroy(): void {
     this.productsSubscription?.unsubscribe();
@@ -106,6 +106,6 @@ export class HomeComponent implements OnInit, OnDestroy{
       error: (err: HttpErrorResponse) => {
         this._ToastrService.success('An error occured. Please try again!');
       }
-    })
+    });
   }
 }
