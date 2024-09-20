@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FlowbiteService } from './core/services/flowbite/flowbite.service';
 
@@ -9,9 +9,12 @@ import { FlowbiteService } from './core/services/flowbite/flowbite.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'ECommerce';
-  constructor(private _FlowbiteService: FlowbiteService) {
-    this._FlowbiteService.loadFlowbite(() => { });
+  private readonly _FlowbiteService = inject(FlowbiteService) 
+  ngOnInit(): void {
+    this._FlowbiteService.loadFlowbite(flowbite => {
+      console.log('Flowbite loaded', flowbite);
+    });
   }
 }
