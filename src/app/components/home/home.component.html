@@ -44,21 +44,8 @@
 <section>
     <div class="w-[90%] mx-auto">
         <h2 class="font-encode text-3xl">Featured products</h2>
-        <div class="w-11/12 md:w-9/12 mx-auto my-4">
-            <label for="product-search" class="mb-2 text-sm font-medium text-gray-900 sr-only ">Search</label>
-            <div class="relative">
-                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <i class="w-4 h-4 text-gray-500 fa-solid fa-magnifying-glass"></i>
-                </div>
-                <input type="text" id="product-search" [(ngModel)]="searchWord"
-                    class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-main focus:border-main"
-                    placeholder="Search Mockups, Logos..." />
-                <button type="submit"
-                    class="text-white absolute end-2.5 bottom-2.5 bg-main hover:scale-105 font-medium rounded-lg text-sm px-4 py-2">Search</button>
-            </div>
-        </div>
         <div class="justify-center flex flex-wrap">
-            @for (product of productList | search: searchWord ; track product.id) {
+            @for (product of productList; track product.id) {
             <div
                 class="w-full sm:w-[45%] md:w-[30%] lg:w-[18%] mx-auto md:mx-2 my-3 bg-white border-[0.5px] border-gray-400 rounded-lg cursor-pointer hover:scale-105 hover:border-main transition-all">
                 <div class="h-36" (click)="openModal(product)">

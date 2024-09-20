@@ -6,8 +6,6 @@ import { Subscription } from 'rxjs';
 import { CategoriesService } from '../../core/services/categories/categories.service';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { RouterLink } from '@angular/router';
-import { SearchPipe } from '../../core/pipes/search/search.pipe';
-import { FormsModule } from '@angular/forms';
 import { CartService } from '../../core/services/cart/cart.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
@@ -15,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CarouselModule, RouterLink, SearchPipe, FormsModule],
+  imports: [CarouselModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -68,7 +66,10 @@ export class HomeComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     this.productsSubscription = this._ProductsService.getAllProducts().subscribe({
       next: (res) => {
-        this.productList = res.data
+        let products: any[] = res.data;
+        if (products.length > 0) {
+          this.productList = products.slice(0,10);
+        }
       },
       error: (err: HttpErrorResponse) => {
         this._ToastrService.success('An error occured. Please try again!');
@@ -79,7 +80,7 @@ export class HomeComponent implements OnInit, OnDestroy{
         this.categoriesList = res.data;
       },
       error: (err: HttpErrorResponse) => {
-        this._ToastrService.success('An error occured. Please try again!');
+        this._ToastrService.error('An error occured. Please try again!');
       }
     });
   }
@@ -98,13 +99,12 @@ export class HomeComponent implements OnInit, OnDestroy{
   addProductToCart(id: string): void {
     this._CartService.addProductToCart(id).subscribe({
       next: (res) => {
-        console.log(res);
         if (res.status == 'success') {
           this._ToastrService.success(res.message);
         }
       },
       error: (err: HttpErrorResponse) => {
-        this._ToastrService.success('An error occured. Please try again!');
+        this._ToastrService.error('An error occured. Please try again!');
       }
     });
   }
