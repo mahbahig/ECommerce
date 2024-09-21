@@ -1,3 +1,6 @@
+// New
+
+
 import { ICategories } from './../../core/interfaces/categories/icategories';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ProductsService } from '../../core/services/products/products.service';
@@ -5,19 +8,19 @@ import { IProduct } from '../../core/interfaces/product/iproduct';
 import { Subscription } from 'rxjs';
 import { CategoriesService } from '../../core/services/categories/categories.service';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
-import { RouterLink } from '@angular/router';
-import { CartService } from '../../core/services/cart/cart.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { SpecificProductComponent } from "../specific-product/specific-product.component";
+import { ProductModalComponent } from "../product-modal/product-modal.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CarouselModule, RouterLink],
+  imports: [CarouselModule, SpecificProductComponent, ProductModalComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit, OnDestroy{
+export class HomeComponent implements OnInit, OnDestroy {
 
   mainCarousel: OwlOptions = {
     loop: true,
@@ -47,11 +50,9 @@ export class HomeComponent implements OnInit, OnDestroy{
     autoHeight: false
   }
 
-
   private readonly _ProductsService = inject(ProductsService);
   private readonly _CategoriesService = inject(CategoriesService);
-  private readonly _CartService = inject(CartService);
-  private readonly _ToastrService = inject(ToastrService)
+  private readonly _ToastrService = inject(ToastrService);
 
   productList: IProduct[] = [];
   categoriesList: ICategories[] = [];
@@ -61,18 +62,16 @@ export class HomeComponent implements OnInit, OnDestroy{
 
   selectedProduct!: IProduct | null;
 
-  searchWord: string = '';
-
   ngOnInit(): void {
     this.productsSubscription = this._ProductsService.getAllProducts().subscribe({
       next: (res) => {
         let products: any[] = res.data;
         if (products.length > 0) {
-          this.productList = products.slice(0,10);
+          this.productList = products.slice(0, 10);
         }
       },
       error: (err: HttpErrorResponse) => {
-        this._ToastrService.success('An error occured. Please try again!');
+        this._ToastrService.error('An error occured. Please try again!');
       },
     });
     this.categoriesSubscription = this._CategoriesService.getAllCategories().subscribe({
@@ -92,20 +91,9 @@ export class HomeComponent implements OnInit, OnDestroy{
   openModal(product: IProduct): void {
     this.selectedProduct = product;
   }
-  closeModal(): void {
-    this.selectedProduct = null;
-  }
-
-  addProductToCart(id: string): void {
-    this._CartService.addProductToCart(id).subscribe({
-      next: (res) => {
-        if (res.status == 'success') {
-          this._ToastrService.success(res.message);
-        }
-      },
-      error: (err: HttpErrorResponse) => {
-        this._ToastrService.error('An error occured. Please try again!');
-      }
-    });
+  closeModal($event: boolean): void {
+    if (!$event) {
+      this.selectedProduct = null;
+    }
   }
 }

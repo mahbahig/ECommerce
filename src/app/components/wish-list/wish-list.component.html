@@ -1,1 +1,28 @@
-<p>wish-list works!</p>
+<section class="py-8">
+    <div class="w-11/12 mx-auto p-6 bg-main-light rounded-lg">
+        <div class="flex flex-col justify-between md:flex-row">
+            <h2 class="font-encode text-3xl">Wishlist</h2>
+        </div>
+        <ul class="my-2">
+            @if (wishlistProducts) {
+            @for (product of wishlistProducts; track product.id) {
+            <li
+                class="w-full py-4 border-b-[0.5px] border-b-gray-500 px-4 flex flex-col md:flex-row justify-between items-center">
+                <div class="flex flex-col md:flex-row">
+                    <img class="aspect-square w-full md:w-24" [src]="product?.imageCover" [alt]="product?.title">
+                    <div class="flex flex-col justify-between mx-4 items-center md:items-start gap-y-2 md:gap-y-0">
+                        <h5 class="text-xl font-encode text-gray-900">{{product?.title?.split(' ', 2)?.join(' ')}}
+                        </h5>
+                        <button (click)="addToCart(product.id)"
+                            class="text-sm font-encode bg-main text-white py-2 px-4 rounded hover:scale-105 transition-all">Add
+                            to <i class="fa-solid fa-cart-shopping"></i></button>
+                        <h5 (click)="removeFromWishlist(product.id)" class="font-encode text-red-800 cursor-pointer"><i
+                                class="fa-regular fa-trash-can me-2"></i>Remove</h5>
+                    </div>
+                </div>
+            </li>
+            }
+            }
+        </ul>
+    </div>
+</section>

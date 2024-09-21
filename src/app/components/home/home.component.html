@@ -44,86 +44,11 @@
 <section>
     <div class="w-[90%] mx-auto">
         <h2 class="font-encode text-3xl">Featured products</h2>
-        <div class="justify-center flex flex-wrap">
+        <div class="flex justify-around flex-wrap">
             @for (product of productList; track product.id) {
-            <div
-                class="w-full sm:w-[45%] md:w-[30%] lg:w-[18%] mx-auto md:mx-2 my-3 bg-white border-[0.5px] border-gray-400 rounded-lg cursor-pointer hover:scale-105 hover:border-main transition-all">
-                <div class="h-36" (click)="openModal(product)">
-                    <img class="w-full h-full object-fill rounded-t-lg" [src]="product.imageCover"
-                        [alt]="product.title" />
-                </div>
-                <div class="px-2 pb-5 mt-2">
-                    <div (click)="openModal(product)">
-                        <p class="text-lg md:text-sm text-gray-500">{{product.category.name}}</p>
-                        <h5 class="text-sm font-semibold tracking-tight text-gray-900">{{product.title.split('
-                            ',2).join(' ')}}</h5>
-                        <div class="flex items-center mt-2.5 mb-5">
-                            <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                                @for (star of [1, 2, 3, 4, 5].slice(0, product.ratingsAverage); track $index) {
-                                <i class="fa-solid fa-star text-yellow-500"></i>
-                                }
-                                @if (product.ratingsAverage%1 !== 0) {
-                                <i class="fa-solid fa-star-half-alt text-yellow-500"></i>
-                                }
-                                <span class="text-gray-500 text-xs font-semibold">{{product.ratingsAverage}}
-                                    ({{product.ratingsQuantity}})</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between px-2">
-                        <span class="text-sm font-semibold text-gray-500">{{product.price}} EGP</span>
-                        <button (click)="addProductToCart(product.id)"
-                            class="text-white bg-main hover:scale-105 transition-all md:w-6/12 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center">
-                            Add <i class="fa-solid fa-cart-shopping text-main-light"></i></button>
-                    </div>
-                </div>
-            </div>
+            <app-specific-product (click)="openModal(product)" [product]='product'></app-specific-product>
             }
         </div>
     </div>
-    @if (selectedProduct) {
-    <div class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-20">
-        <div class="bg-white w-11/12 md:w-1/2 rounded-lg shadow-lg  relative">
-            <button (click)="closeModal()"
-                class="text-gray-800 bg-transparent hover:bg-gray-200 rounded-lg p-3 mr-auto absolute right-4 top-4">
-                <i class="fa-solid fa-x text-2xl"></i>
-            </button>
-            <img [src]="selectedProduct.imageCover" alt="Selected Product"
-                class="w-full h-48 md:h-72 object-fill rounded-md">
-            <div class="px-5 pb-5">
-                <p class="text-gray-900 text-xl">{{selectedProduct.title}}</p>
-                <p class="text-gray-500">{{selectedProduct.description.split(' ', 8).join(' ')}}</p>
-                <div class="flex items-center gap-x-2 w-fit border-2 border-gray-500 px-2">
-                    <img [src]="selectedProduct.brand.image" alt="{{selectedProduct.brand.name}} Logo" class="w-8 h-8 rounded">
-                    <p class="text-gray-500 text-sm">{{selectedProduct.brand.name}}</p>
-                </div>
-                <div class="flex items-center mt-2.5 mb-5">
-                    <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                        @for (star of [1, 2, 3, 4, 5].slice(0, selectedProduct.ratingsAverage); track $index) {
-                        <i class="fa-solid fa-star text-yellow-500"></i>
-                        }
-                        @if (selectedProduct.ratingsAverage%1 !== 0) {
-                        <i class="fa-solid fa-star-half-alt text-yellow-500"></i>
-                        }
-                    </div>
-                    <span
-                        class="bg-main-light text-main text-xs font-semibold px-2.5 py-0.5 rounded ms-3">{{selectedProduct.ratingsAverage}}</span>
-                    <span
-                        class="text-xs text-gray-500 font-semibold px-2.5 py-0.5">({{selectedProduct.ratingsQuantity}})</span>
-                </div>
-                <div class="flex items-center justify-between flex-col md:flex-row gap-y-2 md:gap-0">
-                    <span class="text-xl font-semibold text-gray-500 ">{{selectedProduct.price}} EGP</span>
-                    <div class="flex flex-col md:flex-row gap-y-2 md:gap-0 items-center w-full md:w-fit ">
-                        <a (click)="addProductToCart(selectedProduct.id)"
-                            class="text-white mx-4 bg-main hover:scale-105 transition-all focus:ring-4 focus:outline-none cursor-pointer font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full md:w-fit">Add
-                            to cart <i class="fa-solid fa-cart-shopping text-white"></i></a>
-                        <a [routerLink]="['/details', selectedProduct.id]"
-                            class="text-white mx-4 bg-main hover:scale-105 transition-all focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full md:w-fit">More
-                            Details<i class="fa-solid fa-arrow-right text-white ml-2"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    }
+    <app-product-modal (dataEmitter)="closeModal($event)" [product]="selectedProduct"></app-product-modal>
 </section>

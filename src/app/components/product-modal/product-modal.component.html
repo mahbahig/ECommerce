@@ -1,0 +1,51 @@
+@if (product) {
+<div class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-20">
+    <div class="bg-white w-11/12 md:w-1/2 rounded-lg shadow-lg  relative">
+        <button (click)="closeModal()"
+            class="text-gray-800 bg-transparent hover:bg-gray-200 rounded-lg p-3 mr-auto absolute right-4 top-4">
+            <i class="fa-solid fa-x text-2xl"></i>
+        </button>
+        <img [src]="product.imageCover" alt="Selected Product" class="w-full h-48 md:h-72 object-fill rounded-md">
+        <div class="px-5 pb-5">
+            <p class="text-gray-900 text-xl">{{product.title}}</p>
+            <p class="text-gray-500">{{product.description.split(' ', 8).join(' ')}}</p>
+            <div class="flex items-center gap-x-2 w-fit border-2 border-gray-500 px-2">
+                <img [src]="product.brand.image" alt="{{product.brand.name}} Logo" class="w-8 h-8 rounded">
+                <p class="text-gray-500 text-sm">{{product.brand.name}}</p>
+            </div>
+            <div class="flex items-center mt-2.5 mb-5">
+                <div class="flex items-center space-x-1 rtl:space-x-reverse">
+                    @for (star of [1, 2, 3, 4, 5].slice(0, product.ratingsAverage); track $index) {
+                    <i class="fa-solid fa-star text-yellow-500"></i>
+                    }
+                    @if (product != null && product.ratingsAverage % 1 !== 0) {
+                    <i class="fa-solid fa-star-half-alt text-yellow-500"></i>
+                    }
+                </div>
+                <span
+                    class="bg-main-light text-main text-xs font-semibold px-2.5 py-0.5 rounded ms-3">{{product.ratingsAverage}}</span>
+                <span class="text-xs text-gray-500 font-semibold px-2.5 py-0.5">({{product.ratingsQuantity}})</span>
+            </div>
+            <div class="flex items-center justify-between flex-col md:flex-row gap-y-2 md:gap-0">
+                <span class="text-xl font-semibold text-gray-500 ">{{product.price}} EGP</span>
+                <div class="flex flex-col md:flex-row gap-y-2 md:gap-0 items-center w-full md:w-fit ">
+                    @if (product != null) {
+                    <div class="flex flex-col md:flex-row gap-y-2 md:gap-0 items-center w-full md:w-fit ">
+                        <button (click)="toggleProductToWishlist(product.id)"
+                            class="text-white mx-4 bg-main hover:scale-105 transition-all focus:ring-4 focus:outline-none cursor-pointer font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full md:w-fit">Add
+                            to Wishlist <i class="fa-solid fa-heart "
+                                [ngClass]="{'text-red-800': inWishList[product.id], 'text-white': !inWishList[product.id]}"></i></button>
+                        <button (click)="addProductToCart(product.id)"
+                            class="text-white mx-4 bg-main hover:scale-105 transition-all focus:ring-4 focus:outline-none cursor-pointer font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full md:w-fit">Add
+                            to Cart <i class="fa-solid fa-cart-shopping"></i></button>
+                        <button [routerLink]="['/details', product.id]"
+                            class="text-white mx-4 bg-main hover:scale-105 transition-all focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full md:w-fit">More
+                            Details<i class="fa-solid fa-arrow-rightml-2"></i></button>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

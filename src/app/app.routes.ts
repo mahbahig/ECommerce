@@ -11,6 +11,8 @@ import { authGuard } from './core/guards/auth/auth.guard';
 import { loggedGuard } from './core/guards/logged/logged.guard';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
+import { OrdersComponent } from './components/orders/orders.component';
+import { WishListComponent } from './components/wish-list/wish-list.component';
 
 export const routes: Routes = [
     {
@@ -26,12 +28,13 @@ export const routes: Routes = [
         path: '', component: BlankLayoutComponent, canActivate:[authGuard],children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent, title: 'Home' },
-            { path: 'cart', component: CartComponent, title: 'Cart' },
             { path: 'products', component: ProductsComponent, title: 'Products' },
             { path: 'cart', component: CartComponent, title: 'Cart' },
+            { path: 'wishlist', component: WishListComponent, title: 'Wish List' },
+            { path: 'orders', component: OrdersComponent, title: 'Orders' },
             { path: 'details/:productId', component: ProductDetailsComponent },
+            { path: '**', component: NotFoundComponent, title: 'Not Found' }
         ]
     },
 
-    { path: '**', component: NotFoundComponent, title: 'Not Found' }
 ];

@@ -12,8 +12,6 @@ export class CartService {
 
   header: any = {token: localStorage.getItem('userToken')};
 
-  constructor() { }
-
   addProductToCart(productId: string): Observable<any> {
     return this._HttpClient.post(`${environment.baseUrl}/api/v1/cart`,
       { "productId": productId },
@@ -45,5 +43,4 @@ export class CartService {
       { headers: this.header }
     )
   }
-
 }

@@ -1,72 +1,29 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ProductsService } from '../../core/services/products/products.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Component, inject, Input } from '@angular/core';
 import { IProduct } from '../../core/interfaces/product/iproduct';
-import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
-import { Subscription } from 'rxjs';
 import { CartService } from '../../core/services/cart/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 import { WishlistService } from '../../core/services/wishlist/wishlist.service';
-import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'app-product-details',
+  selector: 'app-specific-product',
   standalone: true,
-  imports: [CarouselModule, NgClass],
-  templateUrl: './product-details.component.html',
-  styleUrl: './product-details.component.scss'
+  imports: [],
+  templateUrl: './specific-product.component.html',
+  styleUrl: './specific-product.component.scss'
 })
-export class ProductDetailsComponent implements OnInit, OnDestroy {
+export class SpecificProductComponent {
 
-  customOptions: OwlOptions = {
-    loop: true,
-    mouseDrag: true,
-    touchDrag: true,
-    pullDrag: true,
-    dots: false,
-    navSpeed: 700,
-    autoplay: true,
-    autoplayTimeout: 3000,
-    navText: ['', ''],
-    items: 1,
-    nav: false
-  }
+  @Input() product!: IProduct;
 
-  private readonly _ActivatedRoute = inject(ActivatedRoute);
-  private readonly _ProductsService = inject(ProductsService);
   private readonly _CartService = inject(CartService);
   private readonly _ToastrService = inject(ToastrService);
   private readonly _WishlistService = inject(WishlistService);
 
   inWishList: { [id: string]: boolean } = {};
 
-  ActivatedRouteSubscription!: Subscription;
-  ProductsServiceSubscription!: Subscription;
-
-  product: IProduct | null= null;
-
-  ngOnInit(): void {
-    this.ActivatedRouteSubscription = this._ActivatedRoute.paramMap.subscribe({
-      next: (params) => { 
-        this.ProductsServiceSubscription = this._ProductsService.getSpecificProduct(params.get('productId')).subscribe({
-          next: (res) => {
-            this.product = res.data;
-          },
-          error: (err: HttpErrorResponse) => {
-          }
-        })
-      }
-    })
-  }
-  ngOnDestroy(): void {
-    this.ActivatedRouteSubscription.unsubscribe()
-    this.ProductsServiceSubscription.unsubscribe()
-  }
-
-
-
-  addProductToCart(id: string): void {
+  addProductToCart(id: string, $event: Event): void {
+    $event.stopPropagation();
     this._CartService.addProductToCart(id).subscribe({
       next: (res) => {
         if (res.status == 'success') {
