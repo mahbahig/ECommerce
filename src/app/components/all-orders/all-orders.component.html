@@ -1,0 +1,27 @@
+<section>
+    <div class="w-11/12 py-8 mx-auto flex flex-wrap justify-center md:justify-between gap-4">
+        @for (order of userOrders; track order._id) {
+        <div
+            class="w-full md:w-5/12 mx-auto md:mx-2 my-3 bg-white border-[0.5px] border-gray-400 rounded-lg cursor-pointer hover:scale-105 hover:border-main transition-all">
+            <div class="px-4 pb-5 my-2">
+                <p class="text-center text-lg">{{$index + 1}}</p>
+                <p class="text-lg">Order created at {{order.createdAt| date}}</p>
+                <p class="text-lg">Payment Method: {{order.paymentMethodType | titlecase }}</p>
+                <p class="text-lg">Total Price: {{order.totalOrderPrice | currency : 'GBP'}}</p>
+                @if (order.isPaid) {
+                <p class="text-lg text-main">Order paid at {{order.paidAt | date}}</p>
+                }
+                @else {
+                <p class="text-lg text-red-800">Order not paid</p>
+                }
+                @if (order.isDelivered) {
+                <p class="text-lg text-main">Order delivered</p>
+                }
+                @else {
+                <p class="text-lg text-red-800">Order not delivered</p>
+                }
+            </div>
+        </div>
+        }
+    </div>
+</section>

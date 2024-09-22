@@ -13,6 +13,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { WishListComponent } from './components/wish-list/wish-list.component';
+import { AllOrdersComponent } from './components/all-orders/all-orders.component';
 
 export const routes: Routes = [
     {
@@ -31,8 +32,9 @@ export const routes: Routes = [
             { path: 'products', component: ProductsComponent, title: 'Products' },
             { path: 'cart', component: CartComponent, title: 'Cart' },
             { path: 'wishlist', component: WishListComponent, title: 'Wish List' },
-            { path: 'orders', component: OrdersComponent, title: 'Orders' },
+            { path: 'order/:cartId', component: OrdersComponent, title: 'Place Order' },
             { path: 'details/:productId', component: ProductDetailsComponent },
+            { path: 'allorders', component: AllOrdersComponent, title: 'All Orders' },
             { path: '**', component: NotFoundComponent, title: 'Not Found' }
         ]
     },

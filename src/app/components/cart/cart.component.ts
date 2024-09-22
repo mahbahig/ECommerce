@@ -7,11 +7,13 @@ import { FormsModule } from '@angular/forms';
 import { ICart } from '../../core/interfaces/cart/icart';
 import { CurrencyPipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { OrdersService } from '../../core/services/orders/orders.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [SearchPipe, FormsModule, CurrencyPipe],
+  imports: [CurrencyPipe, RouterLink],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })

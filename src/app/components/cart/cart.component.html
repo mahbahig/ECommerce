@@ -45,5 +45,8 @@
             </li>
             }
         </ul>
+        @if (cartDetails.products && cartDetails.products.length != 0) {
+            <button [routerLink]="['/order', cartDetails._id]" class="bg-main text-white py-2 w-full rounded hover:scale-105 transition-all">Add Shipping Details</button>
+        }
     </div>
 </section>

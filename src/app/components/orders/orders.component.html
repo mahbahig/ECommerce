@@ -1,1 +1,73 @@
-<p>orders works!</p>
+<section>
+    <div class="w-9/12 mx-auto py-8">
+        <h2 class="font-encode text-3xl">Enter Shipping Details:</h2>
+        <form class="my-4" [formGroup]="shippingForm" (ngSubmit)="orderFormSubmit()">
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="text" name="details" id="details" placeholder=" " formControlName="details"
+                    class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent rounded border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-main peer" />
+                <label for="details"
+                    class="peer-focus:font-medium ml-2 absolute text-sm text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-main peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">Details</label>
+                @if(shippingForm.get('details')?.errors && shippingForm.get('details')?.touched) {
+                <div class="bg-[#fbd5d5ac] py-2 mt-2 rounded-md">
+                    @if(shippingForm.get('details')?.getError('required')) {
+                    <p class="text-center text-gray-700">Details is required</p>
+                    }
+                    @else if(shippingForm.get('details')?.getError('minlength')) {
+                    <p class="text-center text-gray-700">Minimum length for details is 3 charecters</p>
+                    }
+                </div>
+                }
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="text" name="phone" id="phone" placeholder=" " formControlName="phone"
+                    class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent rounded border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-main peer" />
+                <label for="phone"
+                    class="peer-focus:font-medium ml-2 absolute text-sm text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-main peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">Phone</label>
+                @if(shippingForm.get('phone')?.errors && shippingForm.get('phone')?.touched) {
+                <div class="bg-[#fbd5d5ac] py-2 mt-2 rounded-md">
+                    @if(shippingForm.get('phone')?.getError('required')) {
+                    <p class="text-center text-gray-700">Phone number is required</p>
+                    }
+                    @else if(shippingForm.get('phone')?.getError('pattern')) {
+                    <p class="text-center text-gray-700">Enter a valid phone number</p>
+                    }
+                </div>
+                }
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="text" name="city" id="city" placeholder=" " formControlName="city"
+                    class="block py-2.5 px-2 w-full text-sm text-gray-900 bg-transparent rounded border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-main peer" />
+                <label for="city"
+                    class="peer-focus:font-medium ml-2 absolute text-sm text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-main peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">City</label>
+                @if(shippingForm.get('city')?.errors && shippingForm.get('city')?.touched) {
+                <div class="bg-[#fbd5d5ac] py-2 mt-2 rounded-md">
+                    @if(shippingForm.get('city')?.getError('required')) {
+                    <p class="text-center text-gray-700">City is required</p>
+                    }
+                    @else if(shippingForm.get('city')?.getError('minlength')) {
+                    <p class="text-center text-gray-700">Minimum length for city is 3 charecters</p>
+                    }
+                </div>
+                }
+            </div>
+            <div class="flex flex-col md:flex-row justify-between">
+                <button type="submit" (click)="orderStat = 'cash'" class="bg-main text-white py-2 w-full md:w-5/12 rounded hover:scale-105 transition-all my-2 md:my-0">
+                    @if (!cashOrderLoading) {
+                        Place Cash Order!
+                    }
+                    @else {
+                        <i class="fas fa-spinner fa-spin"></i>
+                    }
+                </button>
+                <button type="submit" (click)="orderStat = 'visa'" class="bg-main text-white py-2 w-full md:w-5/12 rounded hover:scale-105 transition-all my-2 md:my-0">
+                    @if (!visaOrderLoading) {
+                        Place Visa Order! <i class="fa-brands fa-cc-visa"></i>
+                    }
+                    @else {
+                        <i class="fas fa-spinner fa-spin"></i>
+                    }
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
